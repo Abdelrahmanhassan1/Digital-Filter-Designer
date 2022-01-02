@@ -2,3 +2,23 @@
 .axis line {
  color: darkgray;
 }
+#browseLabel{
+    margin-left: 60rem;
+    font-size: 1.5rem;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;    
+}
+#browsebtn{
+    margin-left: 63rem;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+#endSpace{
+    height: 100px;
+}
+#first_label{
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 2rem;
+    font-family: 'Times New Roman', Times, serif;
+}

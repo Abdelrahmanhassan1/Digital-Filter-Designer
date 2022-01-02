@@ -3,7 +3,7 @@ class Plot {
         this.width = w;
         this.height = h;
     }
-    plot = (x1, y1, x2, y2, x3, y3, label1, label2, label3) => {
+    plot = (x1, y1, x2, y2, x3, y3,x4, y4, label1, label2, label3, label4) => {
         this.freq = d3.select("#plot1").append("div")
             .attr("id", "freqResp")
             .attr("style", "position: relative;margin: auto;")
@@ -25,9 +25,18 @@ class Plot {
         this.canvas = d3.select("#allPassResp").append("canvas")
             .attr("id", "myChart3");
 
+        this.phase = d3.select("#plot4").append("div")
+            .attr("id", "plottedsignal")
+            .attr("style", "position: relative;margin: auto;")
+            .attr("width", this.width).attr("height", this.height);
+        this.canvas = d3.select("#plottedsignal").append("canvas")
+            .attr("id", "myChart4");
+
+            
         this.ctx1 = document.getElementById('myChart1');
         this.ctx2 = document.getElementById('myChart2');
         this.ctx3 = document.getElementById('myChart3');
+        this.ctx4 = document.getElementById('myChart4');
 
         let data1 = {
             labels: x1,
@@ -58,7 +67,15 @@ class Plot {
                 borderColor: 'rgb(75, 192, 192)'
             }]
         }
-
+        let data4 = {
+            labels: x4,
+            datasets: [{
+                label: label4,
+                data: y4,
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)'
+            }]
+        }
         let options = {
             maintainAspectRatio: false,
             animation: false,
@@ -94,11 +111,17 @@ class Plot {
             options: options,
             data: data3
         });
-        return {myChart1 , myChart2 , myChart3 };
+        var myChart4 = new Chart(this.ctx4, {
+            type: 'line',
+            options: options,
+            data: data4
+        });
+        return {myChart1 , myChart2 , myChart3, myChart4 };
     }
     destroy = () => {
         d3.select("#myChart1").remove();
         d3.select("#myChart2").remove();
         d3.select("#myChart3").remove();
+        d3.select("#myChart4").remove();
     }
 }
