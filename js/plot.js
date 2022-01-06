@@ -3,7 +3,7 @@ class Plot {
         this.width = w;
         this.height = h;
     }
-    plot = (x1, y1, x2, y2, x3, y3,x4, y4, label1, label2, label3, label4) => {
+    plot = (x1, y1, x2, y2, x3, y3,x4, y4,x5,y5, label1, label2, label3, label4, label5) => {
         this.freq = d3.select("#plot1").append("div")
             .attr("id", "freqResp")
             .attr("style", "position: relative;margin: auto;")
@@ -31,12 +31,20 @@ class Plot {
             .attr("width", this.width).attr("height", this.height);
         this.canvas = d3.select("#plottedsignal").append("canvas")
             .attr("id", "myChart4");
+        
+        this.phase = d3.select("#plot5").append("div")
+            .attr("id", "plottedsignalFiltered")
+            .attr("style", "position: relative;margin: auto;")
+            .attr("width", this.width).attr("height", this.height);
+        this.canvas = d3.select("#plottedsignalFiltered").append("canvas")
+            .attr("id", "myChart5");
 
             
         this.ctx1 = document.getElementById('myChart1');
         this.ctx2 = document.getElementById('myChart2');
         this.ctx3 = document.getElementById('myChart3');
         this.ctx4 = document.getElementById('myChart4');
+        this.ctx5 = document.getElementById('myChart5');
 
         let data1 = {
             labels: x1,
@@ -72,6 +80,15 @@ class Plot {
             datasets: [{
                 label: label4,
                 data: y4,
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)'
+            }]
+        }
+        let data5 = {
+            labels: x5,
+            datasets: [{
+                label: label5,
+                data: y5,
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)'
             }]
@@ -116,12 +133,18 @@ class Plot {
             options: options,
             data: data4
         });
-        return {myChart1 , myChart2 , myChart3, myChart4 };
+        var myChart5 = new Chart(this.ctx5, {
+            type: 'line',
+            options: options,
+            data: data5
+        });
+        return {myChart1 , myChart2 , myChart3, myChart4, myChart5 };
     }
     destroy = () => {
         d3.select("#myChart1").remove();
         d3.select("#myChart2").remove();
         d3.select("#myChart3").remove();
         d3.select("#myChart4").remove();
+        d3.select("#myChart5").remove();
     }
 }

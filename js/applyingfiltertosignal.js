@@ -1,4 +1,4 @@
-class ZTransform {
+class ApplyingFilterToSignal {
     constructor() {
         this.MAX_POINTS = 500
         this.semiUnitCircle = this.generateSemiUnitCircle();
@@ -37,11 +37,11 @@ class ZTransform {
         }
     }
 
-    filter(poles = [[]], zeroes = [[]], allPass = [[]]) {
+    filterToSignal(poles = [[]], zeroes = [[]], allPass = [[]], data = [[]] ) {
         let magResponse = []
         let phaseResponse = []
         let magNum, magDenum, phaseNum, phaseDenum, diff;
-        for (const point of this.semiUnitCircle) {
+        for (const point of data) {
             magNum = 1;
             magDenum = 1;
             phaseNum = 0;
@@ -64,9 +64,10 @@ class ZTransform {
             magResponse.push((magNum / magDenum).toFixed(5));
             phaseResponse.push(phaseNum - phaseDenum.toFixed(5));
         }
+        console.log(magResponse);
         return {
-            "magnitude": magResponse,
-            "phase": phaseResponse
+            "magnitudeOfFiltered": magResponse,
+            "phaseOfFiltered": phaseResponse
         };
     }
 

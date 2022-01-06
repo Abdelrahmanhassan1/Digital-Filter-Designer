@@ -1,17 +1,17 @@
-class PlotImportedSignal {
+class PlotFilteredSignal {
     constructor(w, h) {
         this.width = w;
         this.height = h;
     }
-    plotimported = (x1, y1, label1) => {
-        this.freq = d3.select("#plot4").append("div")
-            .attr("id", "plottedsignal")
+    plotfiltered = (x1, y1, label1) => {
+        this.freq = d3.select("#plot5").append("div")
+            .attr("id", "plottedsignalFiltered")
             .attr("style", "position: relative;margin: auto;")
             .attr("width", this.width).attr("height", this.height);
-        this.canvas = d3.select("#plottedsignal").append("canvas")
-            .attr("id", "myChart4");
+        this.canvas = d3.select("#plottedsignalFiltered").append("canvas")
+            .attr("id", "myChart5");
             
-        this.ctx1 = document.getElementById('myChart4');
+        this.ctx1 = document.getElementById('myChart5');
 
         let data1 = {
             labels: x1,
@@ -42,16 +42,16 @@ class PlotImportedSignal {
                 }
             }
         }
-        var myChart4 = new Chart(this.ctx1, {
+        var myChart5 = new Chart(this.ctx1, {
             type: 'line',
             options: options,
             data: data1
         });
 
         
-        return {myChart4};
+        return {myChart5};
     }
     destroy = () => {
-        d3.select("#myChart4").remove();   
+        d3.select("#myChart5").remove();   
     }
 }
