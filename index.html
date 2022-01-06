@@ -8,6 +8,7 @@
     <script type="text/javascript" src="js/Zplane.js"></script>
     <script type="text/javascript" src="js/chart/chart.js"></script>
     <script type="text/javascript" src="js/plot.js"></script>
+    <script type="text/javascript" src="js/plotImportedSignal.js"></script>
     <script type="text/javascript" src="js/Ztransform.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.4.2/math.min.js"
         integrity="sha512-X8Y5jFgsf/zxQN1X83Tdp1eHCzY52EfcYrDpbLxffRpF3Cyub7v9Jo0b5uwt1x6/h3ZnFzjL+yK12y1f7Q2zhg=="
@@ -62,10 +63,10 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <h6>Current real : <span id="current_x"></span></h6>
+                    <h6 id="third_label">Current real : <span id="current_x"></span></h6>
                 </div>
                 <div class="col">
-                    <h6>Current j : <span id="current_j"></span></h6>
+                    <h6 id="third_label">Current j : <span id="current_j"></span></h6>
                 </div>
             </div>
         </div>
@@ -73,15 +74,15 @@
 
     <section id="plot_info" class="container">
         <div class="row col-12">
-            <h3 class="text-center mb-5">Add Zeroes & Poles Manually:</h3>
+            <h3 class="text-center mb-5" id="first_label">Add Zeroes & Poles Manually:</h3>
         </div>
         <div class="row">
             <select name="PointType" id="PointType" class="col form-select w-51">
-                <option selected value="nonConjPole">Pole</option>
-                <option value="conjPole">conjugate Pole</option>
-                <option value="nonConjZero">Zero</option>
-                <option value="conjZero">Conjugate Zero</option>
-                <option value="allPass">All Pass</option>
+                <option selected value="nonConjPole" id="third_label">Pole</option>
+                <option value="conjPole" id="third_label">conjugate Pole</option>
+                <option value="nonConjZero" id="third_label">Zero</option>
+                <option value="conjZero" id="third_label">Conjugate Zero</option>
+                <option value="allPass" id="third_label">All Pass</option>
             </select>
             <div class="col">
                 <input type="text" value="0" class="form-control" id="real">
@@ -93,7 +94,7 @@
                 <button class="btn btn-success" onclick="addPoint()">Add</button>
             </div>
             <div class="col">
-                <h6 class="mt-2">All-Pass</h6>
+                <h6 class="mt-2" id="third_label">All-Pass</h6>
             </div>
             <div class="col">
                 <select name="allPass" id="allPass" class="col form-select w-50">
@@ -114,10 +115,11 @@
         </div>
     </section>
     <section>
-        <h3 class="text-center mb-5">Upload Signals</h3>
+        <h3 class="text-center mb-5" id="first_label">Upload Signals</h3>
         <!-- <button class="btn h-100 btn-success" onclick="load_signal()">Load/Browse</button> -->
-        <h4 class="text-center mb-5">Select Signal File:</h3>
+        <h4 class="text-center mb-5" id="second_label">Select Signal File:</h3>
         <input type="file" class="btn btn-success" id="browsebtn" >
+        <button class="btn btn-success" onclick="plotImportedSignal()">Plot Signal</button>
         <table id="browsedSignal"></table>
         <section class="container mt-5">
             <div id="plot4" class="col">
@@ -131,6 +133,8 @@
 
     <!-- freq response -->
     <script type="text/javascript">
+        var time_array_value = [];
+        var amp_array_value = [];
         let zplane = new Zplane(350, 350);
         let ztrans = new ZTransform();
         let allPassValues = [];
@@ -167,12 +171,22 @@
                 dataset.data = phase;
             });
             charts.myChart3.update();
+            plotImportedSignal();
         }
-        // const plotImportedSignal = (time_values, amplitude_values) =>{
-        //     charts = plt.plot([], [], [], [], [], [], time_values, amplitude_values, "magnitude response", "phase response", "All-pass Phase Response", "Plotted Signal");
-        // }
+
+        function plotImportedSignal(){
+            let pltImported = new PlotImportedSignal(30, 100);
+            pltImported.destroy();
+            // let chartimported = pltImported.plotimported([1,2,4],[2,3,5],"Imported Signal"); 
+            console.log(time_array_value);
+            console.log(amp_array_value);
+            let chartimported = pltImported.plotimported(time_array_value, amp_array_value,"Imported Signal"); 
+            // return 0;   
+
+        }
         zplane.function_during_drag = update_plots;
         zplane.function_during_delete = update_plots;
+
         const add_real = (type) => {
             if (type == zplane.types.nonConjPole) {
                 //get value of pole
@@ -237,22 +251,23 @@
         // }
 
         // Loading Signals:
+        
         const browsebtn = document.querySelector("#browsebtn");
         browsebtn.addEventListener("change", () => {
             const fileReader = new FileReader();
             fileReader.onloadend = e => {
                 let file_result = fileReader.result.split("\n").map(e => {
-                    let time_value = e.split(",")[0];
-                    let amplitude_value = e.split(",")[1];
-                    // plotImportedSignal(time_value, amplitude_value);
-
-                    
+                    let time_value = Number(e.split(",")[0]);
+                    let amplitude_value = Number(e.split(",")[1]);        
+                    time_array_value.push(time_value);
+                    amp_array_value.push(amplitude_value);
+                    return 0;
                 });
-
-                
+                console.log("213")
+                console.log(time_array_value);
+                console.log(amp_array_value);
             }
             fileReader.readAsText(browsebtn.files[0]);
-
         });
 
         

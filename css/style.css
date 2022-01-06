@@ -2,6 +2,8 @@
 .axis line {
  color: darkgray;
 }
+
+
 #browseLabel{
     margin-left: 60rem;
     font-size: 1.5rem;
@@ -20,5 +22,18 @@
     margin-top: 10px;
     font-weight: bold;
     font-size: 2rem;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+#second_label{
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 1.5rem;
+    font-family: 'Times New Roman', Times, serif;
+}
+#third_label{
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 18px;
     font-family: 'Times New Roman', Times, serif;
 }
