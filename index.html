@@ -15,7 +15,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.4.2/math.min.js"
         integrity="sha512-X8Y5jFgsf/zxQN1X83Tdp1eHCzY52EfcYrDpbLxffRpF3Cyub7v9Jo0b5uwt1x6/h3ZnFzjL+yK12y1f7Q2zhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="styles/style.css">
     <link rel="icon" 
       type="image/png" 
       href="./filter_2.png">
@@ -24,6 +23,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 
 <body>
@@ -32,33 +32,33 @@
             background-color: #2D2D2D;
         }
         button{
-    display:flex;
-    background-color: #c2fbd7;
-    box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset,rgba(44, 187, 99, .15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,rgba(44, 187, 99, .15) 0 16px 32px;
-    color: green;
-    cursor: pointer;
-    font-family: cursive;
-    padding: 7px 20px;
-    text-align: center;
-    text-decoration: none;
-    transition: all 250ms;
-    border: 0;
-    margin:5px;
-    font-size: 60px;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    color: black;
-    font-weight: bold;
-    border-radius: 200px;
-}
-button:hover{
-    box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
-    transform: scale(1.05) rotate(-1deg);
-}
+            display:flex;
+            background-color: #c2fbd7;
+            box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset,rgba(44, 187, 99, .15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,rgba(44, 187, 99, .15) 0 16px 32px;
+            color: green;
+            cursor: pointer;
+            font-family: cursive;
+            padding: 7px 20px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 250ms;
+            border: 0;
+            margin:5px;
+            font-size: 60px;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            color: black;
+            font-weight: bold;
+            border-radius: 200px;
+        }
+        button:hover{
+            box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+            transform: scale(1.05) rotate(-1deg);
+        }
     </style>
     <h1 class="text-center mb-5" id="first_label">Digital Filter Designer</h1>
-    
+        
     <section class="d-lg-flex container" id="plots">
         <section class="container mt-5">
             <div id="plot1" class="col">
@@ -149,8 +149,7 @@ button:hover{
         <input type="file"  id="browsebtn" class="btn btn-success">
         <button onclick="plotImportedSignal()" class="btn btn-success">Plot Signal</button>
     </div>
-    
-    
+       
     <!--charts For Imported Signal plotting -->
     <section class="container mt-5">
         <div id="plot4" class="col">
@@ -158,12 +157,14 @@ button:hover{
         </div> 
     </section>
 
-    <div  class="container">
+    <section class="container">
         <h2 class="text-center mb-5" id="first_label">After Filteration Process</h2>
+        <div class="row-cols-1">
+
+            <button onclick="plotFilteredSignalFunction()" class="btn btn-success" >Apply Filter</button>
+         </div>
+    </section>
     
-        <button onclick="plotFilteredSignalFunction()" class="btn btn-success" >Apply Filter</button>
-         
-    </div>
     <section class="container mt-5">
         <div id="plot5" class="col">
 

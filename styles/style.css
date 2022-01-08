@@ -6,7 +6,6 @@ h3, h1, h2, h6, h4{
     color: #C5BA9A;    
 }
 
-
 #browseLabel{
     margin-left: 60rem;
     font-size: 1.5rem;
@@ -43,5 +42,4 @@ h3, h1, h2, h6, h4{
 }
 #myChart1, #myChart2, #myChart3, #myChart4, #myChart5{
     background-color: white;
-
 }

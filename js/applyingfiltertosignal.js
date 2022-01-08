@@ -41,7 +41,8 @@ class ApplyingFilterToSignal {
         let magResponse = []
         let phaseResponse = []
         let magNum, magDenum, phaseNum, phaseDenum, diff;
-        for (const point of data) {
+        var i = 0;
+        for (const point of this.semiUnitCircle) {
             magNum = 1;
             magDenum = 1;
             phaseNum = 0;
@@ -61,8 +62,9 @@ class ApplyingFilterToSignal {
                 phaseNum = phaseNum + this.phase([1-point[0]*a[0] - point[1]*a[1],point[0]*a[1] - point[1]*a[0]]);
                 phaseDenum = phaseDenum + this.phase(diff);
             }
-            magResponse.push((magNum / magDenum).toFixed(5));
+            magResponse.push(data[i]*(magNum / magDenum).toFixed(5));
             phaseResponse.push(phaseNum - phaseDenum.toFixed(5));
+            i+=1;
         }
         console.log(magResponse);
         return {
