@@ -9,7 +9,7 @@ class ZTransform {
     }
 
     generateSemiUnitCircle() {
-        this.theta = this.linspace(-4, Math.PI, this.MAX_POINTS);
+        this.theta = this.linspace(0, Math.PI, this.MAX_POINTS);
         let points = [];
         let x, y;
         for (let i = 0; i < this.MAX_POINTS; i++) {

@@ -8,6 +8,8 @@
     <script type="text/javascript" src="js/Zplane.js"></script>
     <script type="text/javascript" src="js/chart/chart.js"></script>
     <script type="text/javascript" src="js/plot.js"></script>
+    <script type="text/javascript" src="js/plotly.min.js"></script>
+    <!-- <script src="https://cdn.plot.ly/plotly-2.8.3.min.js"></script> -->
     <script type="text/javascript" src="js/plotImportedSignal.js"></script>
     <script type="text/javascript" src="js/plotFilteredSignal.js"></script>
     <script type="text/javascript" src="js/Ztransform.js"></script>
@@ -174,6 +176,13 @@
     
     <div id="endSpace"></div>
 
+    <div id="importedsignalchart"></div>
+
+    <div id="endSpace"></div>
+
+
+            
+
 
     <!-- freq response -->
     <script type="text/javascript">
@@ -263,15 +272,14 @@
         function plotImportedSignal(){
             let pltImported = new PlotImportedSignal(30, 100);
             pltImported.destroy();
-            // let chartimported = pltImported.plotimported([1,2,4],[2,3,5],"Imported Signal"); 
-            // console.log(time_array_value);
-            // console.log(amp_array_value);
+            // // let chartimported = pltImported.plotimported([1,2,4],[2,3,5],"Imported Signal"); 
+            // // console.log(time_array_value);
+            // // console.log(amp_array_value);
             let chartimported = pltImported.plotimported(time_array_value, amp_array_value,"Imported Signal"); 
-            // return 0;   
 
+            // return 0;   
         }
-        
-        
+              
         function filteredSignal(data){
             magnitudeAfterFilteration = [];
             plt.destroy();
@@ -286,8 +294,8 @@
             let pltFiltered = new PlotFilteredSignal(30, 100);
             filteredSignal(amp_array_value);
 
-            console.log("sdafdsfsdfdsf")
-            console.log(magnitudeAfterFilteration);
+            // console.log("sdafdsfsdfdsf")
+            // console.log(magnitudeAfterFilteration);
             update_plots();
             pltFiltered.destroy();
             
@@ -296,7 +304,6 @@
             // console.log(amp_array_value);
             let chartfiltered = pltFiltered.plotfiltered(time_array_value, magnitudeAfterFilteration,"Filtered Signal"); 
             // return 0;   
-
         }
         
         zplane.function_during_drag = update_plots;
