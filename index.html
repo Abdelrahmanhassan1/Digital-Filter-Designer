@@ -15,7 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.4.2/math.min.js"
         integrity="sha512-X8Y5jFgsf/zxQN1X83Tdp1eHCzY52EfcYrDpbLxffRpF3Cyub7v9Jo0b5uwt1x6/h3ZnFzjL+yK12y1f7Q2zhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="styles/style.css">
     <link rel="icon" 
       type="image/png" 
       href="./filter_2.png">
@@ -27,6 +27,36 @@
 </head>
 
 <body>
+    <style>
+        body{
+            background-color: #2D2D2D;
+        }
+        button{
+    display:flex;
+    background-color: #c2fbd7;
+    box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset,rgba(44, 187, 99, .15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,rgba(44, 187, 99, .15) 0 16px 32px;
+    color: green;
+    cursor: pointer;
+    font-family: cursive;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 250ms;
+    border: 0;
+    margin:5px;
+    font-size: 60px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    color: black;
+    font-weight: bold;
+    border-radius: 200px;
+}
+button:hover{
+    box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+    transform: scale(1.05) rotate(-1deg);
+}
+    </style>
     <h1 class="text-center mb-5" id="first_label">Digital Filter Designer</h1>
     
     <section class="d-lg-flex container" id="plots">
