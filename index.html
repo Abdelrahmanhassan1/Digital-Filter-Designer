@@ -161,7 +161,7 @@ button:hover{
     <div  class="container">
         <h2 class="text-center mb-5" id="first_label">After Filteration Process</h2>
     
-        <button onclick="plotFilteredSignal()" class="btn btn-success" >Apply Filter</button>
+        <button onclick="plotFilteredSignalFunction()" class="btn btn-success" >Apply Filter</button>
          
     </div>
     <section class="container mt-5">
@@ -177,6 +177,7 @@ button:hover{
     <!-- freq response -->
     <script type="text/javascript">
         var time_array_value = [];
+        var magnitudeAfterFilteration = [];
         
         var amp_array_value = [];
         
@@ -234,6 +235,30 @@ button:hover{
             plotImportedSignal();
         }
 
+        const browsebtn = document.querySelector("#browsebtn");
+        
+        browsebtn.addEventListener("change", () => {
+            time_array_value = [];
+        
+            amp_array_value = [];
+
+            const fileReader = new FileReader();
+            fileReader.onloadend = e => {
+                let file_result = fileReader.result.split("\n").map(e => {
+                    let time_value = Number(e.split(",")[0]);
+                    let amplitude_value = Number(e.split(",")[1]);        
+                    time_array_value.push(time_value);
+                    amp_array_value.push(amplitude_value);
+                    return 0;
+                });
+                // console.log("213")
+                // console.log(time_array_value);
+                // console.log(amp_array_value);
+            }
+            fileReader.readAsText(browsebtn.files[0]);
+        });
+
+
         function plotImportedSignal(){
             let pltImported = new PlotImportedSignal(30, 100);
             pltImported.destroy();
@@ -241,6 +266,34 @@ button:hover{
             // console.log(time_array_value);
             // console.log(amp_array_value);
             let chartimported = pltImported.plotimported(time_array_value, amp_array_value,"Imported Signal"); 
+            // return 0;   
+
+        }
+        
+        
+        function filteredSignal(data){
+            magnitudeAfterFilteration = [];
+            plt.destroy();
+            let poles = zplane.get_poles();
+            let zeros = zplane.get_zeros();
+            let allPass = zplane.get_allPass();
+            let { magnitudeOfFiltered, phaseOfFiltered }  = ztransToSignal.filterToSignal(poles, zeros, allPass, data); //y-axis
+            magnitudeAfterFilteration = magnitudeOfFiltered;
+        }
+
+        function plotFilteredSignalFunction(){
+            let pltFiltered = new PlotFilteredSignal(30, 100);
+            filteredSignal(amp_array_value);
+
+            console.log("sdafdsfsdfdsf")
+            console.log(magnitudeAfterFilteration);
+            update_plots();
+            pltFiltered.destroy();
+            
+            // let chartimported = pltImported.plotimported([1,2,4],[2,3,5],"Imported Signal"); 
+            // console.log(time_array_value);
+            // console.log(amp_array_value);
+            let chartfiltered = pltFiltered.plotfiltered(time_array_value, magnitudeAfterFilteration,"Filtered Signal"); 
             // return 0;   
 
         }
@@ -321,54 +374,15 @@ button:hover{
 
         // Loading Signals:
         
-        const browsebtn = document.querySelector("#browsebtn");
+       
         
-        browsebtn.addEventListener("change", () => {
-            const fileReader = new FileReader();
-            fileReader.onloadend = e => {
-                let file_result = fileReader.result.split("\n").map(e => {
-                    let time_value = Number(e.split(",")[0]);
-                    let amplitude_value = Number(e.split(",")[1]);        
-                    time_array_value.push(time_value);
-                    amp_array_value.push(amplitude_value);
-                    return 0;
-                });
-                // console.log("213")
-                // console.log(time_array_value);
-                // console.log(amp_array_value);
-            }
-            fileReader.readAsText(browsebtn.files[0]);
-        });
-
-        var magnitudeAfterFilteration = [];
-        function filteredSignal(data){
-            plt.destroy();
-            let poles = zplane.get_poles();
-            let zeros = zplane.get_zeros();
-            let allPass = zplane.get_allPass();
-            let { magnitudeOfFiltered, phaseOfFiltered }  = ztransToSignal.filterToSignal(poles, zeros, allPass, data); //y-axis
-            magnitudeAfterFilteration = magnitudeOfFiltered;
-        }
         // function showFilteredSignal(){
             
         //     console.log("sdafdsfsdfdsf")
         //     console.log(magnitudeAfterFilteration);
 
         // }
-        function plotFilteredSignal(){
-            let pltFiltered = new plotFilteredSignal(30, 100);
-            
-            console.log("sdafdsfsdfdsf")
-            console.log(magnitudeAfterFilteration);
-            
-            pltFiltered.destroy();
-            // let chartimported = pltImported.plotimported([1,2,4],[2,3,5],"Imported Signal"); 
-            // console.log(time_array_value);
-            // console.log(amp_array_value);
-            let chartfiltered = pltFiltered.plotfiltered(time_array_value, magnitudeAfterFilteration,"Filtered Signal"); 
-            // return 0;   
-
-        }
+       
         
     </script>
 
