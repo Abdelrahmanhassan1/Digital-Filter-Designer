@@ -43,7 +43,10 @@ class ApplyingFilterToSignal {
         let phaseResponse = []
         let magNum, magDenum, phaseNum, phaseDenum, diff;
         var i = 0;
-        let parts = [0, 1]
+        // let parts = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
+        let parts = Array.from(Array(20).keys());
+        // console.log(parts);
+
         for (const part of parts ){
             // console.log(part);
             i = (500 * part)
