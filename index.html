@@ -176,7 +176,9 @@
     
     <div id="endSpace"></div>
 
-    <div id="importedsignalchart"></div>
+    <button onclick="plotRealTimeGraph()" class="btn btn-success">Show Real Time Graph</button>
+    
+    <div id="myDiv"></div>
 
     <div id="endSpace"></div>
 
@@ -391,6 +393,30 @@
 
         // }
        
+        function plotRealTimeGraph(){
+            var index = 0;
+            function getData() {
+                ++index;
+                return amp_array_value[index];
+                
+            }  
+            Plotly.plot('myDiv',[{
+                y:[getData()],
+                type:'line'
+            }]);        
+            var cnt = 0;
+            setInterval(function(){
+                Plotly.extendTraces('myDiv',{ y:[[getData()]]}, [0]);
+                cnt++;
+                if(cnt > 100) {
+                    Plotly.relayout('myDiv',{
+                        xaxis: {
+                            range: [cnt-100,cnt]
+                        }
+                    });
+                }
+            },15);
+        }
         
     </script>
 
