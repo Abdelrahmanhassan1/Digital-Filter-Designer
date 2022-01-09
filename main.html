@@ -370,7 +370,7 @@
             let poles = zplane.get_poles();
             let zeros = zplane.get_zeros();
             let allPass = zplane.get_allPass();
-            console.log(slider_value);
+            // console.log(slider_value);
             let { magnitudeOfFiltered, phaseOfFiltered }  = ztransToSignal.filterToSignal(poles, zeros, allPass, data, slider_value, input_Signal_length);
              //y-axis
             magnitudeAfterFilteration = magnitudeOfFiltered;

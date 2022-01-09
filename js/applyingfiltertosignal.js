@@ -58,7 +58,7 @@ class ApplyingFilterToSignal {
         // let parts = Array.from(Array(20).keys());
         let parts = Array.from(Array(Math.ceil(signal_length / numOfPoints)).keys());
 
-        console.log(parts);
+        // console.log(parts);
 
         for (const part of parts ){
             // console.log(part);   
