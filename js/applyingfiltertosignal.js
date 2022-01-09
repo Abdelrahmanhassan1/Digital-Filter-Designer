@@ -1,6 +1,6 @@
 class ApplyingFilterToSignal {
     constructor() {
-        this.MAX_POINTS = 500
+        this.MAX_POINTS = 500;
         this.semiUnitCircle = this.generateSemiUnitCircle();
     }
 
@@ -37,23 +37,36 @@ class ApplyingFilterToSignal {
         }
     }
 
-    filterToSignal(poles = [[]], zeroes = [[]], allPass = [[]], data = [[]] ) {
+    generate_Semi_Unit_Circle_With_Specific_Number_Of_Points(numberOfPoints) {
+        this.theta = this.linspace(0, Math.PI, numberOfPoints);
+        let points = [];
+        let x, y;
+        for (let i = 0; i < numberOfPoints; i++) {
+            x = Math.cos(this.theta[i]);
+            y = Math.sin(this.theta[i]);
+            points[i] = [x, y]
+        }
+        return points;
+    }
+    filterToSignal(poles = [[]], zeroes = [[]], allPass = [[]], data = [[]], numOfPoints, signal_length ) {
         let fullMagResponse = []
         let magResponse = []
         let phaseResponse = []
         let magNum, magDenum, phaseNum, phaseDenum, diff;
         var i = 0;
         // let parts = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
-        let parts = Array.from(Array(20).keys());
-        // console.log(parts);
+        // let parts = Array.from(Array(20).keys());
+        let parts = Array.from(Array(Math.ceil(signal_length / numOfPoints)).keys());
+
+        console.log(parts);
 
         for (const part of parts ){
-            // console.log(part);
-            i = (500 * part)
+            // console.log(part);   
+            i = (numOfPoints * part)
             let magResponse = []
-        let phaseResponse = []
+            let phaseResponse = []
             // console.log(i);
-            for (const point of this.semiUnitCircle) {
+            for (const point of this.generate_Semi_Unit_Circle_With_Specific_Number_Of_Points(numOfPoints)) {
                 magNum = 1;
                 magDenum = 1;
                 phaseNum = 0;

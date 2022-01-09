@@ -33,6 +33,8 @@ h3, h1, h2, h6, h4{
     font-weight: bold;
     font-size: 1.5rem;
     font-family: 'Times New Roman', Times, serif;
+    color: #C5BA9A;
+    margin: 10px;
 }
 #third_label{
     margin-top: 10px;
@@ -42,4 +44,7 @@ h3, h1, h2, h6, h4{
 }
 #myChart1, #myChart2, #myChart3, #myChart4, #myChart5{
     background-color: white;
+}
+#myRange{
+    margin: 10px;
 }
