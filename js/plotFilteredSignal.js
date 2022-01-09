@@ -37,7 +37,7 @@ class PlotFilteredSignal {
             },
             elements : {
                 point : {
-                    backgroundColor : "	#FF8C00",
+                    backgroundColor : "	#FF8CAEB0",
                     borderWidth : "0"
                 }
             }

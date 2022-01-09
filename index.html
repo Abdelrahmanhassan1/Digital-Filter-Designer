@@ -8,6 +8,8 @@
     <script type="text/javascript" src="js/Zplane.js"></script>
     <script type="text/javascript" src="js/chart/chart.js"></script>
     <script type="text/javascript" src="js/plot.js"></script>
+    <script type="text/javascript" src="js/plotly.min.js"></script>
+    <!-- <script src="https://cdn.plot.ly/plotly-2.8.3.min.js"></script> -->
     <script type="text/javascript" src="js/plotImportedSignal.js"></script>
     <script type="text/javascript" src="js/plotFilteredSignal.js"></script>
     <script type="text/javascript" src="js/Ztransform.js"></script>
@@ -15,7 +17,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.4.2/math.min.js"
         integrity="sha512-X8Y5jFgsf/zxQN1X83Tdp1eHCzY52EfcYrDpbLxffRpF3Cyub7v9Jo0b5uwt1x6/h3ZnFzjL+yK12y1f7Q2zhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="css/style.css">
     <link rel="icon" 
       type="image/png" 
       href="./filter_2.png">
@@ -24,11 +25,77 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 
 <body>
+    <style>
+        body{
+            background-color: #2D2D2D;
+        }
+        button{
+            display:flex;
+            background-color: #c2fbd7;
+            box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset,rgba(44, 187, 99, .15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,rgba(44, 187, 99, .15) 0 16px 32px;
+            color: green;
+            cursor: pointer;
+            font-family: cursive;
+            padding: 7px 20px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 250ms;
+            border: 0;
+            margin:5px;
+            font-size: 60px;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            color: black;
+            font-weight: bold;
+            border-radius: 200px;
+        }
+        .btnhomepage{
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            margin-top:30px;
+        }
+
+        .btnhomepage {
+            display:flex;
+            background-color: #c2fbd7;
+            border-radius: 100px;
+            box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset,rgba(44, 187, 99, .15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,rgba(44, 187, 99, .15) 0 16px 32px;
+            color: green;
+            cursor: pointer;
+            font-family: cursive;
+            padding: 7px 20px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 250ms;
+            border: 0;
+            margin:5px;
+            font-size: 30px;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            color: black;
+            font-weight: bold;
+        }
+
+        .btnhomepage:hover {
+            box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+            transform: scale(1.05) rotate(-1deg);
+        }
+        #thankbtn{
+            position:absolute;
+
+            left: 54%;
+            transform: translate(-80%, -45%);
+        }
+    </style>
     <h1 class="text-center mb-5" id="first_label">Digital Filter Designer</h1>
-    
+        
     <section class="d-lg-flex container" id="plots">
         <section class="container mt-5">
             <div id="plot1" class="col">
@@ -119,8 +186,7 @@
         <input type="file"  id="browsebtn" class="btn btn-success">
         <button onclick="plotImportedSignal()" class="btn btn-success">Plot Signal</button>
     </div>
-    
-    
+       
     <!--charts For Imported Signal plotting -->
     <section class="container mt-5">
         <div id="plot4" class="col">
@@ -128,12 +194,16 @@
         </div> 
     </section>
 
-    <div  class="container">
+    <!--Buttons & Labels For Filtered Signal plotting -->
+    <section class="container">
         <h2 class="text-center mb-5" id="first_label">After Filteration Process</h2>
+        <div class="row-cols-1">
+
+            <button onclick="plotFilteredSignalFunction()" class="btn btn-success" >Apply Filter</button>
+         </div>
+    </section>
     
-        <button onclick="plotFilteredSignalFunction()" class="btn btn-success" >Apply Filter</button>
-         
-    </div>
+    <!--charts For Filtered Signal plotting -->
     <section class="container mt-5">
         <div id="plot5" class="col">
 
@@ -143,7 +213,32 @@
     
     <div id="endSpace"></div>
 
+    <!--charts For Imported Signal Real Time plotting -->
+    <section class="container">
+        <h2 class="text-center mb-5" id="first_label">Real Time Graphs:</h2>
+        <div class="row-cols-1">
+            <button onclick="plotRealTimeGraph()" class="btn btn-success">Show Real Time Graph For Original Signal</button>
+        
+            <div id="myDiv"></div>
+        </div>
+    </section>
 
+    <div id="endSpace"></div>
+
+     <!--charts For Filtered Signal Real Time plotting -->
+    <section class="container">
+        <div class="row-cols-1">
+            <button onclick="plotRealTimeGraphFiltered()" class="btn btn-success">Show Real Time Graph For Filtered Signal</button>
+    
+            <div id="myDiv2"></div>
+        </div>
+    </section>
+  
+    <div id="endSpace"></div>
+
+    <button class="btnhomepage" id="thankbtn" onclick="location.href='./Thank.html'">Enjoyed the app?</button>
+            
+    <div id="endSpace"></div>
     <!-- freq response -->
     <script type="text/javascript">
         var time_array_value = [];
@@ -232,15 +327,14 @@
         function plotImportedSignal(){
             let pltImported = new PlotImportedSignal(30, 100);
             pltImported.destroy();
-            // let chartimported = pltImported.plotimported([1,2,4],[2,3,5],"Imported Signal"); 
-            // console.log(time_array_value);
-            // console.log(amp_array_value);
+            // // let chartimported = pltImported.plotimported([1,2,4],[2,3,5],"Imported Signal"); 
+            // // console.log(time_array_value);
+            // // console.log(amp_array_value);
             let chartimported = pltImported.plotimported(time_array_value, amp_array_value,"Imported Signal"); 
-            // return 0;   
 
+            // return 0;   
         }
-        
-        
+              
         function filteredSignal(data){
             magnitudeAfterFilteration = [];
             plt.destroy();
@@ -256,8 +350,8 @@
             let pltFiltered = new PlotFilteredSignal(30, 100);
             filteredSignal(amp_array_value);
 
-            console.log("sdafdsfsdfdsf")
-            console.log(magnitudeAfterFilteration);
+            // console.log("sdafdsfsdfdsf")
+            // console.log(magnitudeAfterFilteration);
             update_plots();
             pltFiltered.destroy();
             
@@ -266,7 +360,6 @@
             // console.log(amp_array_value);
             let chartfiltered = pltFiltered.plotfiltered(time_array_value, magnitudeAfterFilteration,"Filtered Signal"); 
             // return 0;   
-
         }
         
         zplane.function_during_drag = update_plots;
@@ -354,7 +447,56 @@
 
         // }
        
+        function plotRealTimeGraph(){
+            var index = 0;
+            function getData() {
+                ++index;
+                return amp_array_value[index];
+                
+            }  
+            Plotly.plot('myDiv',[{
+                y:[getData()],
+                type:'line'
+            }]);        
+            var cnt = 0;
+            setInterval(function(){
+                Plotly.extendTraces('myDiv',{ y:[[getData()]]}, [0]);
+                cnt++;
+                if(cnt > 200) {
+                    Plotly.relayout('myDiv',{
+                        xaxis: {
+                            range: [cnt-200,cnt]
+                        }
+                    });
+                }
+            },15);
+        }
         
+        function plotRealTimeGraphFiltered(){
+            var index_2 = 0;
+            function getData_2() {
+                ++index_2;
+                return magnitudeAfterFilteration[index_2];
+                
+            }  
+            Plotly.plot('myDiv2',[{
+                y:[getData_2()],
+                type:'line'
+            }]);        
+            var cnt_2 = 0;
+            setInterval(function(){
+                Plotly.extendTraces('myDiv2',{ y:[[getData_2()]]}, [0]);
+                cnt_2++;
+                if(cnt_2 > 200) {
+                    Plotly.relayout('myDiv2',{
+                        xaxis: {
+                            range: [cnt_2-200,cnt_2]
+                        }
+                    });
+                }
+            },15);
+        }
+    
     </script>
 
 </body>

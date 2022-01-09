@@ -2,12 +2,16 @@
 .axis line {
  color: darkgray;
 }
+h3, h1, h2, h6, h4{
+    color: #C5BA9A;    
+}
 
 #browseLabel{
     margin-left: 60rem;
     font-size: 1.5rem;
     font-family: 'Times New Roman', Times, serif;
-    font-weight: bold;    
+    font-weight: bold;
+    color: #C5BA9A;    
 }
 #browsebtn{
     margin-left: 63rem;
@@ -35,4 +39,7 @@
     font-weight: bold;
     font-size: 18px;
     font-family: 'Times New Roman', Times, serif;
+}
+#myChart1, #myChart2, #myChart3, #myChart4, #myChart5{
+    background-color: white;
 }

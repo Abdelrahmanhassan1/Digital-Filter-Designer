@@ -26,12 +26,12 @@ class Zplane {
         this.yPositiveScale = d3.scaleLinear().domain([0, 1]).range([this.middlePointOf_y, this.padding]);
 
         // set up x axis
-        this.xPositiveAxis = d3.axisBottom(this.xPositiveScale).tickValues([0.2, 0.4, 0.6, 0.8, 1.0])
-        this.xNegativeAxis = d3.axisBottom(this.xNegativScale).tickValues([-0.2, -0.4, -0.6, -0.8, -1.0]);
+        this.xPositiveAxis = d3.axisBottom(this.xPositiveScale).tickValues([0.2, 0.4, 0.6, 0.8])
+        this.xNegativeAxis = d3.axisBottom(this.xNegativScale).tickValues([-0.2, -0.4, -0.6, -0.8]);
         // set up y axis
-        this.yPositiveAxis = d3.axisLeft(this.yPositiveScale).tickValues([0.2, 0.4, 0.6, 0.8, 1.0]);
+        this.yPositiveAxis = d3.axisLeft(this.yPositiveScale).tickValues([0.2, 0.4, 0.6, 0.8]);
         this.yNegativeAxis = d3.axisLeft(d3.scaleLinear().domain([0, -1]).range([this.middlePointOf_y, this.h - this.padding]))
-            .tickValues([-0.2, -0.4, -0.6, -0.8,-1.0]);
+            .tickValues([-0.2, -0.4, -0.6, -0.8]);
         // draw tha main circle
         this.svg.append("circle").attr("cx", this.middlePointOf_x).attr("cy", this.middlePointOf_y).attr("r", this.middlePointOf_x - this.padding)
             .attr("stroke", "rgb(115, 115, 115)")

@@ -9,7 +9,7 @@ class ApplyingFilterToSignal {
     }
 
     generateSemiUnitCircle() {
-        this.theta = this.linspace(-4, Math.PI, this.MAX_POINTS);
+        this.theta = this.linspace(0, Math.PI, this.MAX_POINTS);
         let points = [];
         let x, y;
         for (let i = 0; i < this.MAX_POINTS; i++) {
@@ -38,35 +38,48 @@ class ApplyingFilterToSignal {
     }
 
     filterToSignal(poles = [[]], zeroes = [[]], allPass = [[]], data = [[]] ) {
+        let fullMagResponse = []
         let magResponse = []
         let phaseResponse = []
         let magNum, magDenum, phaseNum, phaseDenum, diff;
-        for (const point of data) {
-            magNum = 1;
-            magDenum = 1;
-            phaseNum = 0;
-            phaseDenum = 0;
-            for (const zero of zeroes) {
-                diff = this.difference(point, zero);
-                magNum = magNum * this.magnitude(diff);
-                phaseNum = phaseNum + this.phase(diff);
+        var i = 0;
+        let parts = [0, 1]
+        for (const part of parts ){
+            // console.log(part);
+            i = (500 * part)
+            let magResponse = []
+        let phaseResponse = []
+            // console.log(i);
+            for (const point of this.semiUnitCircle) {
+                magNum = 1;
+                magDenum = 1;
+                phaseNum = 0;
+                phaseDenum = 0;
+                for (const zero of zeroes) {
+                    diff = this.difference(point, zero);
+                    magNum = magNum * this.magnitude(diff);
+                    phaseNum = phaseNum + this.phase(diff);
+                }
+                for (const pole of poles) {
+                    diff = this.difference(point, pole);
+                    magDenum = magDenum * this.magnitude(diff);
+                    phaseDenum = phaseDenum + this.phase(diff);
+                }
+                for (const a of allPass) {
+                    diff = this.difference(point, a);
+                    phaseNum = phaseNum + this.phase([1-point[0]*a[0] - point[1]*a[1],point[0]*a[1] - point[1]*a[0]]);
+                    phaseDenum = phaseDenum + this.phase(diff);
+                }
+                magResponse.push(data[i]*(magNum / magDenum).toFixed(5));
+                phaseResponse.push(phaseNum - phaseDenum.toFixed(5));
+                i+=1;
             }
-            for (const pole of poles) {
-                diff = this.difference(point, pole);
-                magDenum = magDenum * this.magnitude(diff);
-                phaseDenum = phaseDenum + this.phase(diff);
-            }
-            for (const a of allPass) {
-                diff = this.difference(point, a);
-                phaseNum = phaseNum + this.phase([1-point[0]*a[0] - point[1]*a[1],point[0]*a[1] - point[1]*a[0]]);
-                phaseDenum = phaseDenum + this.phase(diff);
-            }
-            magResponse.push((magNum / magDenum).toFixed(5));
-            phaseResponse.push(phaseNum - phaseDenum.toFixed(5));
+            fullMagResponse = fullMagResponse.concat(magResponse);
+            // console.log(fullMagResponse);
         }
-        console.log(magResponse);
+        // console.log(fullMagResponse);
         return {
-            "magnitudeOfFiltered": magResponse,
+            "magnitudeOfFiltered": fullMagResponse,
             "phaseOfFiltered": phaseResponse
         };
     }
