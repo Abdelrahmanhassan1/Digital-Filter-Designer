@@ -245,6 +245,7 @@
             magnitudeAfterFilteration = [];
             plt.destroy();
             let poles = zplane.get_poles();
+            
             let zeros = zplane.get_zeros();
             let allPass = zplane.get_allPass();
             let { magnitudeOfFiltered, phaseOfFiltered }  = ztransToSignal.filterToSignal(poles, zeros, allPass, data); //y-axis
