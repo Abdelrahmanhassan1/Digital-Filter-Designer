@@ -169,8 +169,6 @@
                     <option value="-0.1">-0.1</option>
                     <option value="-0.5">-0.5</option>
                     <option value="-0.9">-0.9</option>
-                    <option >Added Options:</option>
-                    <option id="addedAllPass"></option>
                 </select>
             </div>
             <div class="col">
@@ -289,15 +287,7 @@
             let im = parseFloat(document.getElementById("imaginary").value);
             let type = document.getElementById("PointType").value;
             zplane.add_point([re,im],type);
-            update_plots();
-
-            if (type === "allPass"){
-                document.getElementById('addedAllPass').innerHTML = "real:" + re;
-                document.getElementById('addedAllPass').innerHTML += " ";
-                document.getElementById('addedAllPass').innerHTML += "Img:" +im;
-            }
-
-            
+            update_plots();           
         }
         
         const update_plots = () => {
@@ -477,6 +467,7 @@
 
         // }
        
+        
         function plotRealTimeGraph(){
             var index = 0;
             function getData() {
@@ -486,7 +477,7 @@
             }  
             Plotly.plot('myDiv',[{
                 y:[getData()],
-                type:'line'
+                type:'line',
             }]);        
             var cnt = 0;
             setInterval(function(){
